@@ -1,0 +1,386 @@
+body{
+  margin: 0;
+  padding: 0;
+  background: #FFEEB7;
+}
+
+.toast_bread_container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column-reverse;
+  margin-top: 10%;
+}
+
+/** TOASTER **/
+.toaster{
+    --width: 450px;
+    --height: 210px;
+    z-index: 3; /** during animation = bread behind the toaster **/
+    position: absolute;
+    top: 50%;
+}
+.toaster .toaster_front{
+    background: #BE5B5B;
+    width: var(--width);
+    height: var(--height);
+    border-radius: 60px 60px 0px 0px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10000;
+}
+
+.toaster .toaster_front img{
+  position: absolute;
+  right: 5px;
+  top: -5px;
+  width: 200px;
+
+
+}
+
+.toaster .toaster_plank{
+  background-color: #884646;
+  width: calc(var(--width) + 50px);
+  height: calc(var(--height) / 10);
+  border-radius: 20px;
+  z-index: 2;
+}
+
+.toaster .toaster_bottom{
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 40px;
+  margin-top: -10px;
+}
+.toaster .toaster_bottom .bottom_item{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #643131;
+  z-index: -3;
+}
+
+.toaster .toaster_button{
+  width: 15px;
+  height: 25px;
+  background: black;
+  position: absolute;
+  top: 20%;
+  right: 3%;
+  z-index: -1;
+
+  animation-name: toaster-button;
+  animation-duration: 7.5s;
+}
+
+.animation_paused{
+  animation-play-state: paused; /** bug with animation_run on js **/
+}
+
+@keyframes toaster-button{
+  0% { transform : translateY(0); }
+  10% { transform : translateY(100px); }
+  95% { transform : translateY(100px); }
+  100% { transform : translateY(0px); }
+}
+
+/** BREAD **/
+
+.bread{
+  --width: 250px;
+  --height: 250px;
+  z-index: 0;
+  margin: 0 auto;
+  position: absolute;
+  top: 10%;
+
+  animation-name: bread-going-down;
+  animation-duration: 8s;
+  animation-fill-mode: forwards;
+  animation-play-state: paused;
+}
+
+.toasted_bread{
+  width: var(--width);
+  height: calc(var(--height) + 15px);
+  z-index: 3;
+  background-color: #FCECCD;
+  opacity: 0.5;
+  position: absolute;
+  border-radius: 100px 100px 0px 0px;
+  left: 6%;
+
+  transition: background 2s;
+
+  animation-name:   toasted-bread;
+  animation-duration: 7s;
+  animation-fill-mode: forwards;
+  animation-delay: 2s;
+}
+@keyframes bread-going-down{
+  0% { transform : translateY(0); }
+  10% { transform : translateY(230px); }
+  90% { transform : translateY(230px); }
+  98% { transform : translateY(60px); }
+  100% { transform : translateY(100px); }
+}
+
+@keyframes toasted-bread{
+  0% { background:#FCECCD; }
+  50% { background: radial-gradient(ellipse at center, #f9d38b 10%,#f7cc7e 27%,#fceccd 71%);; }
+  100% { background: radial-gradient(ellipse at center, #bc6718 10%,#bf7d3f 27%,#fceccd 70%);}
+}
+.bread .mid_crumb{
+  background: #FCECCD;
+  width: var(--width);
+  height: var(--height);
+  z-index: 1;
+  border: 16px solid #C39B74;
+  border-radius: 10%;
+
+}
+
+.bread .top_crumb{
+  background: #FCECCD;
+  width: calc(var(--width) + 30px);
+  height: calc(var(--height) - 100px);
+  z-index: 2;
+  position: absolute;
+  bottom: 50%;
+  border-radius: 100px;
+}
+
+.bread .top_crust{
+  background:#C39B74;
+  width: calc(var(--width) + 65px);
+  height: calc(var(--height) - 85px);
+  z-index: -99999;
+  position: absolute;
+  bottom: 50%;
+  margin-left: -6%;
+  border-radius: 100px;
+}
+
+/** BREAD FACE **/
+
+.bread .face{
+  width: var(--width);
+  height: calc(var(--height) - 80px);
+  margin-top: 45%;
+}
+
+.bread .face .eyes{
+  display: flex;
+  width: 80%;
+  height: 50px;
+  justify-content: space-around;
+  margin: 0 auto;
+  align-items: center;
+
+}
+
+.bread .eyes .eye{
+  background: #1F1F1F;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  z-index: 9999999;
+  position: relative;
+
+  animation-name: eye-blink;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes eye-blink {
+  0% { transform: scaleY(1); }
+  3% { transform: scaleY(0.1); }
+  10% { transform: scaleY(1); }
+  100% { transform: scaleY(1); }
+}
+
+.bread .eyes .big_gleam{
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  right: 20%;
+  top: 10%;
+  background: white;
+  border-radius: 50%;
+}
+
+.bread .eyes .lil_gleam{
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  bottom: 20%;
+  left: 20%;
+  background: white;
+  border-radius: 50%;
+}
+
+.face .blushes{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: 40px;
+}
+
+.face .blushes .blush{
+  background: #E5B2B2;
+  width: 40px;
+  height: 15px;
+  border-radius: 50%;
+  z-index:99999;
+}
+
+.face .mouth{
+  width: 35px;
+  height: 15px;
+  z-index:99999;
+  background: #B42B2B;
+  border-radius: 0px 0px 90px 90px;
+  margin: 0 auto;
+  margin-top: -20px;
+}
+
+/** BUTTON **/
+
+.button{
+  display: flex;
+  width: 200px;
+  height: 60px;
+  margin: 0px 50px;
+  background: #404040;
+  border-radius: 5%;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 6px 6px 15px -8px rgba(0,0,0,0.57);
+  position: absolute;
+  bottom: 5%;
+  left: 40%;
+
+  transition: 0.3s;
+}
+
+.button a p{
+  color: white;
+  font-size: 18px;
+  font-family: Avenir;
+  font-weight: bolder;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.button a{
+  text-decoration: none;
+}
+.button:hover{
+  background: #e66465;
+}
+
+.button:active{
+  transform: translateY(4px);
+}
+.animation_run{
+  animation-play-state: running;
+}
+
+/** TEXT **/
+
+.text .ready, .text .wait{
+  display: none;
+  position: absolute;
+  text-align: center;
+  right: 42%;
+  top: 5%;
+  font-size: 25px;
+  font-family: Avenir;
+  font-weight: bold;
+  color: #2C2C2C;
+}
+
+/** SMOKE **/
+
+.smoke1 { /** smoke on the right side **/
+	position: absolute;
+	z-index: -5;
+	width: 1px;
+  height: 160px;
+	right: 40%;
+  top: 40%;
+  display: none;
+
+  animation-name: smoke-appear;
+  animation-duration: 9s;
+}
+
+.smoke1 div, .smoke2 div{
+	position: absolute;
+	bottom: -20px;
+  margin-left:-20px;
+	border: 35px solid white;
+	left: -14px;
+  opacity: 0;
+}
+
+.smoke2 { /** smoke on the left side **/
+	position: absolute;
+	z-index: -5;
+	width: 1px;
+  height: 160px;
+	left: 40%;
+  top: 20%;
+  display: none;
+
+  animation-name: smoke-appear;
+  animation-duration: 9s;
+}
+
+@keyframes smoke-appear{
+  0% { opacity: 0; }
+  90% { opacity: 0; }
+  98% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+
+@keyframes smokeLeft {
+	0%   { transform: scale(0.1) translate(0, 0) }
+	20%  { opacity: 1; transform: scale(0.2) translate(0, -5px) }
+	100% { opacity: 0; transform: scale(1) translate(-40px, -130px) }
+}
+
+@keyframes smokeRight {
+	0%   { transform: scale(0.2) translate(0, 0) }
+	20%  { opacity: 1; transform: scale(0.2) translate(0, -5px) }
+	100% { opacity: 0; transform: scale(1) translate(110px, -130px) }
+}
+
+@keyframes smokeMiddle {
+  0% { transform: scale(0.1) }
+  20% { opacity: 1; transform : scale(0.2) translate(0, -5px); }
+  100% { opacity: 0; transform: scale(1) translate(0px, -130px) }
+}
+.smoke1 .s0 { animation: smokeLeft 10s 0s infinite }
+.smoke1 .s1 { animation: smokeRight 10s 1s infinite }
+.smoke1 .s2 { animation: smokeMiddle 10s 2s infinite }
+.smoke1 .s3 { animation: smokeRight 10s 3s infinite }
+.smoke1 .s4 { animation: smokeLeft 10s 4s infinite }
+.smoke1 .s5 { animation: smokeMiddle 10s 5s infinite }
+.smoke1 .s6 { animation: smokeLeft 10s 6s infinite }
+.smoke1 .s7 { animation: smokeRight 10s 7s infinite }
+.smoke1 .s8 { animation: smokeMiddle 10s 8s infinite }
+.smoke1 .s9 { animation: smokeRight 10s 9s infinite }
+
+.smoke2 .s0 { animation: smokeRight 10s 1s infinite }
+.smoke2 .s1 { animation: smokeRight 10s 2s infinite }
+.smoke2 .s2 { animation: smokeRight 10s 5s infinite }
+.smoke2 .s3 { animation: smokeRight 10s 1s infinite }
+.smoke2 .s4 { animation: smokeLeft 10s 6s infinite }
+.smoke2 .s5 { animation: smokeMiddle 10s 9s infinite }
+.smoke2 .s6 { animation: smokeLeft 10s 4s infinite }
+.smoke2 .s7 { animation: smokeRight 10s 2s infinite }
+.smoke2 .s8 { animation: smokeMiddle 10s 7s infinite }
+.smoke2 .s9 { animation: smokeRight 10s 9s infinite }
